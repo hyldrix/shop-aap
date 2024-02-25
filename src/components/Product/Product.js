@@ -35,7 +35,7 @@ const Product = ({ id, name, title, colors, sizes, basePrice }) => {
                   <li key={size.name}><button type="button" onClick={e => {
                     e.preventDefault();
                     setCurrentSize(size)
-                  }} className={clsx(size.name === currentSize ? styles.active : '')}>{size.name}</button></li>
+                  }} className={clsx(size === currentSize && styles.active)}>{size.name}</button></li>
                 )
               })}
             </ul>
