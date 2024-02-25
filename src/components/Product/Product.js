@@ -9,8 +9,24 @@ import { useState } from 'react';
 const Product = ({ id, name, title, colors, sizes, basePrice }) => {
 
   const [currentColor, setCurrentColor] = useState(colors[0]);
-  const [currentSize, setCurrentSize] = useState(sizes[0].name);
-  console.log(currentColor, currentSize)
+  const [currentSize, setCurrentSize] = useState(sizes[0]);
+
+  const getPrice = function (){
+    let price = basePrice;
+    price += sizes.find(s => s.name === currentSize.name).additionalPrice
+    return price;
+  }
+
+  const addToCart = function (event){
+    event.preventDefault();
+    console.log("Summary");
+    console.log("==============");
+    console.log('Name: ' + title);
+    console.log('Price: ' + getPrice());
+    console.log('Size:', currentSize.name);
+    console.log('Color:', currentColor);
+  }
+  
 
   return (
     <article className={styles.product}>
@@ -23,9 +39,9 @@ const Product = ({ id, name, title, colors, sizes, basePrice }) => {
       <div>
         <header>
           <h2 className={styles.name}>{title}</h2>
-          <span className={styles.price}>Price: {basePrice}$</span>
+          <span className={styles.price}>Price: {getPrice()}$</span>
         </header>
-        <form>
+        <form onSubmit={e => addToCart(e)}>
           <div className={styles.sizes}>
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
