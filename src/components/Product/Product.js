@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import Button from '../Button/Button';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import ProductImage from '../ProductImage/ProductImage.js';
 //props are ignored
 //div for sizes in separate component
 
@@ -11,13 +12,13 @@ const Product = ({ id, name, title, colors, sizes, basePrice }) => {
   const [currentColor, setCurrentColor] = useState(colors[0]);
   const [currentSize, setCurrentSize] = useState(sizes[0]);
 
-  const getPrice = function (){
+  const getPrice = function () {
     let price = basePrice;
     price += sizes.find(s => s.name === currentSize.name).additionalPrice
     return price;
   }
 
-  const addToCart = function (event){
+  const addToCart = function (event) {
     event.preventDefault();
     console.log("Summary");
     console.log("==============");
@@ -26,16 +27,14 @@ const Product = ({ id, name, title, colors, sizes, basePrice }) => {
     console.log('Size:', currentSize.name);
     console.log('Color:', currentColor);
   }
-  
+
+  const product = {
+    name, title, currentColor,
+  }
 
   return (
     <article className={styles.product}>
-      <div className={styles.imageContainer}>
-        <img
-          className={styles.image}
-          alt={title}
-          src={`${process.env.PUBLIC_URL}/images/products/shirt-${name}--${currentColor}.jpg`} />
-      </div>
+      <ProductImage {...product} />
       <div>
         <header>
           <h2 className={styles.name}>{title}</h2>
